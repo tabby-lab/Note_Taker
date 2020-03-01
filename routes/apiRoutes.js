@@ -16,5 +16,31 @@ function apiRoutes(app){
        )
        res.json(db)
     })
-}
+
+    //Delete JSON file
+    app.delete('/api/notes/:id',(req,res) => {
+        const reqID = req.params.id;
+
+        fs.readFile('db/db.json', (err,data) => {
+            if (err) throw err;
+            let notesData=JSON.parse(data);
+            
+            let note = notesData.filter((note) => {
+                return note.id = reqId;
+            })[0];
+
+            const index = notesData.indexOf(note);
+            notesData.splice(index, 1);
+            newData=JSON.stringify(notesData);
+
+            fs.writeFile('db/db.json',newData, (err) => {
+                if (err) throw err;
+
+            });
+            res.json(notesData);
+        });l
+    });
+
+
+};
 module.exports=apiRoutes
