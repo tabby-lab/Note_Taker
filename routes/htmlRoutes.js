@@ -1,4 +1,4 @@
-var path=require("path")
+const path=require("path")
 function htmlRoutes(app){
 
     app.get("/",function(req,res){
